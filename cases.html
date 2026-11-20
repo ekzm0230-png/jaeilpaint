@@ -107,6 +107,12 @@ ul,ol{list-style:none;margin:0;padding:0}
 .case-media.two img{aspect-ratio:3/4}
 .case-media.two img+img{border-left:1px solid var(--line)}
 .case-media.stack img+img{border-top:1px solid var(--line)}
+.case.wide{grid-column:1/-1}
+.case.wide .case-body p{max-width:58em}
+.case-media.duo{display:grid;grid-template-columns:1fr 1fr}
+.case-media.duo img{aspect-ratio:8/5}
+.case-media.duo img+img{border-left:1px solid var(--line)}
+@media (max-width:760px){.case-media.duo{grid-template-columns:1fr}.case-media.duo img+img{border-left:0;border-top:1px solid var(--line)}}
 .case-body{padding:20px 22px 22px}
 .case-kind{margin:0 0 5px;font-size:.8125rem;font-weight:700;color:var(--teal-ink)}
 .case h3{margin:0 0 8px;font-size:1.0625rem;font-weight:800;line-height:1.5}
@@ -238,8 +244,8 @@ ul,ol{list-style:none;margin:0;padding:0}
       <p class="filter-note" id="filter-note" role="status" aria-live="polite"><b>전체 5건</b>을 보여 드립니다.</p>
 
       <div class="cases" id="cases">
-        <article class="case" id="case-slate-roof" data-cat="roof res">
-          <div class="case-media stack">
+        <article class="case wide" id="case-slate-roof" data-cat="roof res">
+          <div class="case-media duo">
             <img src="./assets/cases/slate-roof-finish.jpg" width="900" height="506" alt="경주 주택 슬레이트 기와 지붕을 세라민 흑색으로 도장해 마감한 전경" loading="lazy">
             <img src="./assets/cases/slate-roof-detail.jpg" width="900" height="506" alt="세라민 흑색으로 마감한 슬레이트 기와 표면의 광택과 기와 골 마감 상태" loading="lazy">
           </div>
