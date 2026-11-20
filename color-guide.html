@@ -124,12 +124,12 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
 .pc-head{display:flex;align-items:center;gap:7px;margin:0 0 5px}
 .pc-dot{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(17,24,39,.16)}
 .pc-name{font-size:.875rem;font-weight:800;color:#1F2937}
-.pc-line{display:block;padding-left:18px;font-size:.875rem;line-height:1.75;color:#374151;word-break:break-word}
-.pc-line em{font-style:normal;font-weight:800;color:#0F766E;font-size:.8125rem;background:#E6F5F2;border-radius:4px;padding:1px 5px;margin-right:6px;vertical-align:1px}
-.pc-page{display:inline-block;margin-right:6px;padding:1px 8px;border:1px solid #E9CB80;border-radius:6px;background:#FFF3CE;color:#7A3E06;font-weight:900;font-size:1.0625rem;line-height:1.35;font-variant-numeric:tabular-nums;letter-spacing:.03em;vertical-align:1px}
-.pc-code{font-size:.8125rem;font-weight:600;color:#6B7280;letter-spacing:.01em;margin-right:6px;font-variant-numeric:tabular-nums}
-.pc-nm{color:#111827;font-weight:700}
-.pc-de{margin-left:6px;font-size:.8125rem;font-weight:700;color:#6B7280;white-space:nowrap}
+.pc-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;padding-left:12px;font-size:.875rem;line-height:1.75;color:#374151;word-break:break-word}
+.pc-line em{font-style:normal;font-weight:800;color:#0F766E;font-size:.8125rem;background:#E6F5F2;border-radius:4px;padding:1px 5px;vertical-align:1px;white-space:nowrap}
+.pc-page{display:inline-block;padding:1px 8px;border:1px solid #E9CB80;border-radius:6px;background:#FFF3CE;color:#7A3E06;font-weight:900;font-size:1.0625rem;line-height:1.35;font-variant-numeric:tabular-nums;letter-spacing:.03em;vertical-align:1px}
+.pc-code{font-size:.8125rem;font-weight:600;color:#6B7280;letter-spacing:.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pc-nm{color:#111827;font-weight:700;white-space:nowrap}
+.pc-de{font-size:.8125rem;font-weight:700;color:#6B7280;white-space:nowrap}
 .pc-de.warn{color:#B45309}
 .strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:#EDEFF2}
 .strip figure{position:relative;margin:0}
