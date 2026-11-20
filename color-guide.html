@@ -33,16 +33,24 @@ ul,ol{margin:0;padding:0;list-style:none}
 .stats b{display:block;color:#fff;font-size:1.25rem;font-weight:800;line-height:1.25}
 .stats span{font-size:.8125rem;color:#AFC0D6}
 .tabs{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
-.tabs .wrap{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 18px;scrollbar-width:none}
+/* 모바일 포함 모든 화면 폭에서 9개 탭이 한눈에 펼쳐지도록 줄바꿈 (가로 스크롤·드래그 없음) */
+.tabs .wrap{display:flex;flex-wrap:wrap;gap:8px;overflow-x:visible;padding:10px 18px;max-width:1120px}
 .tabs .wrap.drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
-@media(min-width:768px){.tabs .wrap{flex-wrap:wrap;overflow-x:visible;row-gap:8px;cursor:default;max-width:1120px}.tabs .wrap::-webkit-scrollbar{display:none}}
-
+@media(min-width:768px){.tabs .wrap{row-gap:8px;cursor:default}}
 .tabs .wrap::-webkit-scrollbar{display:none}
-.tab{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #D8DEE6;border-radius:999px;font-size:.9375rem;font-weight:700;color:#374151;white-space:nowrap;background:#fff}
+.tab{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #D8DEE6;border-radius:999px;font-size:.9375rem;font-weight:700;color:#374151;white-space:nowrap;background:#fff;max-width:100%}
 .tab i{font-style:normal;font-size:.8125rem;font-weight:800;color:var(--teal2);background:#E6F5F2;border-radius:999px;padding:1px 6px}
 .tab.on,.tab:active{background:var(--navy);border-color:var(--navy);color:#fff}
 .tab.on i{background:rgba(255,255,255,.2);color:#fff}
 .section{padding:34px 0 10px;scroll-margin-top:76px}
+/* 모바일: 2~3줄 탭이 화면 위쪽을 계속 덮지 않도록 상단 고정 해제 + 컴팩트 */
+@media(max-width:767px){
+  .tabs{position:static}
+  .tabs .wrap{gap:6px;padding:8px 14px}
+  .tab{padding:6px 10px;font-size:.8125rem;gap:4px}
+  .tab i{font-size:.75rem;padding:1px 5px}
+  .section{scroll-margin-top:14px}
+}
 .sec-h{font-size:1.375rem;font-weight:800;margin:0 0 8px}
 .sec-p{font-size:.9375rem;color:#6B7280;margin:0 0 18px}
 .src-sec{background:#fff}
