@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ekzm0230-png.github.io/jaeilpaint/sitemap.xml
