@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>frag</title><style>
+:root{--navy:#1B2A4A;--navy2:#14203A;--teal:#0D9488;--teal2:#0F766E;--ink:#111827;--body:#4B5563;--line:#E5E7EB;--soft:#F7F8FA;--warm:#FAF7F2;--wrap:760px}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;font-size:18px}
+body{margin:0;background:#fff;color:var(--body);font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","맑은 고딕",sans-serif;font-size:1.0625rem;line-height:1.66;letter-spacing:-0.01em;-webkit-font-smoothing:antialiased;padding-bottom:24px}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{color:var(--ink);letter-spacing:-0.03em;word-break:keep-all;margin:0}
+p{margin:0;word-break:keep-all}
+ul,ol{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 18px}
+.top{background:linear-gradient(160deg,#1B2A4A 0%,#24395F 60%,#1B4A55 100%);color:#DBE3EF;padding:30px 0 26px}
+.kicker{margin:0 0 8px;font-size:.875rem;font-weight:700;letter-spacing:.02em;color:#7FD6CA}
+.top h1{margin:0 0 10px;color:#fff;font-size:clamp(1.5rem,7vw,2rem);font-weight:800;line-height:1.28}
+.lead{margin:0;font-size:1remrem;line-height:1.7;color:#C7D3E3}
+.lead b{color:#fff}
+.stats{display:flex;gap:10px;margin:18px 0 0}
+.stats li{flex:1;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:10px 12px}
+.stats b{display:block;color:#fff;font-size:1.25rem;font-weight:800;line-height:1.25}
+.stats span{font-size:.8125rem;color:#AFC0D6}
+.tabs{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 18px;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #D8DEE6;border-radius:999px;font-size:.9375rem;font-weight:700;color:#374151;white-space:nowrap;background:#fff}
+.tab i{font-style:normal;font-size:.8125rem;font-weight:800;color:var(--teal2);background:#E6F5F2;border-radius:999px;padding:1px 6px}
+.tab.on,.tab:active{background:var(--navy);border-color:var(--navy);color:#fff}
+.tab.on i{background:rgba(255,255,255,.2);color:#fff}
+.section{padding:34px 0 10px;scroll-margin-top:76px}
+.sec-h{font-size:1.375rem;font-weight:800;margin:0 0 8px}
+.sec-p{font-size:.9375rem;color:#6B7280;margin:0 0 18px}
+.src-sec{background:#fff}
+.src-head{margin:0 0 20px;padding:18px;border-radius:16px;background:var(--warm);border:1px solid #EFE7DA}
+.src-kicker{margin:0 0 4px;font-size:.875rem;font-weight:800;color:var(--teal2);letter-spacing:.02em}
+.src-head .sec-h{font-size:1.25rem}
+.src-meta{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px;font-size:.875rem;color:#6B7280}
+.src-meta span{background:#fff;border:1px solid #E7DFD2;border-radius:999px;padding:3px 9px}
+.src-meta a{color:var(--teal2);font-weight:700;border-bottom:1px solid #BFE3DD}
+.quote{margin:0;padding:10px 0 10px 14px;border-left:3px solid var(--teal);font-size:.9375rem;color:#4B5563;line-height:1.65}
+.tags{margin:8px 0 0;font-size:.875rem;color:#9CA3AF;word-break:break-all}
+.principle{margin:12px 0 0;font-size:.9375rem;color:#1F2937;background:#fff;border:1px dashed #D9CDB8;border-radius:10px;padding:10px 12px}
+.count-note{margin:10px 0 0;font-size:.875rem;color:#6B7280;line-height:1.6}
+.cover{margin:14px 0 0;border-radius:12px;overflow:hidden;background:#fff;border:1px solid #EFE7DA}
+.cover img{width:100%}
+.cover figcaption{padding:8px 10px;font-size:.875rem;color:#6B7280;background:#fff}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:0 0 22px;box-shadow:0 1px 2px rgba(17,24,39,.04),0 6px 20px rgba(17,24,39,.05)}
+.photo{position:relative;margin:0;background:#F3F4F6;cursor:zoom-in;overflow:hidden}
+.photo img{width:100%;display:block}
+.zoom{position:absolute;right:10px;bottom:10px;background:rgba(17,24,39,.72);color:#fff;font-size:.8125rem;font-weight:700;padding:5px 9px;border-radius:999px}
+.photo figcaption{position:absolute;left:10px;top:10px;background:rgba(255,255,255,.92);color:#374151;font-size:.8125rem;font-weight:700;padding:4px 9px;border-radius:999px}
+.card-body{padding:16px}
+.card-body h3{font-size:1.1875rem;font-weight:800;line-height:1.4}
+.sub{margin:4px 0 14px;font-size:.9375rem;color:#6B7280}
+.sw-row{display:grid;gap:8px;margin:0 0 14px}
+.sw{display:flex;align-items:center;gap:10px;width:100%;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fff;font:inherit;text-align:left;cursor:pointer;min-height:52px;transition:border-color .12s,background .12s}
+.sw:active{background:var(--soft)}
+.sw.copied{border-color:var(--teal);background:#F0FBF9}
+.sw-chip{width:42px;height:42px;border-radius:9px;flex:none;border:1px solid rgba(17,24,39,.12)}
+.sw-txt{display:flex;flex-direction:column;min-width:0}
+.sw-txt b{font-size:.9375rem;color:var(--ink);letter-spacing:.02em}
+.sw-txt em{font-style:normal;font-size:.9375rem;font-weight:700;color:#374151}
+.sw-txt i{font-style:normal;font-size:.8125rem;color:#9CA3AF;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ratio-label{margin:0;font-size:.8125rem;font-weight:800;color:#6B7280;letter-spacing:.02em}
+.rbar{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:6px 0;border:1px solid rgba(17,24,39,.08)}
+.rbar i{display:block;height:100%}
+.ratio-txt{margin:0 0 14px;font-size:.875rem;color:#6B7280}
+.note{border-radius:12px;padding:11px 12px;margin:0 0 10px}
+.note .tag{display:inline-block;font-size:.8125rem;font-weight:800;margin:0 0 5px;padding:2px 7px;border-radius:6px}
+.note p{font-size:.9375rem;line-height:1.68;color:#374151}
+.note.verified{background:#F4F6F9;border:1px solid #E3E8EF}
+.note.verified .tag{background:#E3E8EF;color:#334155}
+.note.match{background:#F5F7FB;border:1px solid #DCE3EF}
+.note.match .tag{background:#1B2A4A;color:#fff}
+.ml li{position:relative;padding:0 0 6px 0;font-size:.9375rem;line-height:1.6;color:#374151}
+.ml li:last-child{padding-bottom:0}
+.ml b{color:#1B2A4A;font-weight:800;margin-right:5px}
+.note.match b{color:#1B2A4A}
+.note.tip{background:#F0FBF9;border:1px solid #CDEDE7}
+.note.tip .tag{background:#0D9488;color:#fff}
+.note b{color:var(--teal2);font-weight:700}
+.note.verified b{color:#334155}
+.src{display:inline-flex;align-items:center;gap:5px;font-size:.875rem;font-weight:700;color:var(--teal2);border-bottom:1px solid #BFE3DD;padding:2px 0}
+.gcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 16px}
+.gcard h3{font-size:1.125rem;font-weight:800;margin:0 0 12px}
+.ol{counter-reset:o}
+.ol li{counter-increment:o;position:relative;padding:0 0 12px 30px;font-size:.9375rem;line-height:1.68}
+.ol li::before{content:counter(o);position:absolute;left:0;top:2px;width:21px;height:21px;border-radius:50%;background:var(--navy);color:#fff;font-size:.8125rem;font-weight:800;display:grid;place-items:center}
+.ol b{color:var(--ink)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px}
+table{width:100%;border-collapse:collapse;font-size:.9375rem;min-width:600px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{background:var(--soft);font-size:.875rem;color:#374151;font-weight:800;white-space:nowrap}
+td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
+.ck li{position:relative;padding:0 0 10px 16px;font-size:.9375rem;line-height:1.66}
+.ck li::before{content:"·";position:absolute;left:4px;top:-1px;color:var(--teal);font-weight:900}
+.ck b{color:var(--ink)}
+.script p{background:var(--soft);border-radius:10px;padding:11px 12px;font-size:.9375rem;line-height:1.7;margin:0 0 8px;color:#374151}
+.script b{color:var(--teal2)}
+.gcard.warn{background:#FFFBEB;border-color:#FDE68A}
+.note.wall{background:#FFF9EF;border:1px solid #F2E2C4}
+.note.wall .tag{background:#B45309;color:#fff}
+.note.wall b{color:#92400E}
+.note.why{background:#F3F6F4;border:1px solid #DCE5E0}
+.note.why .tag{background:#2F6E5E;color:#fff}
+.note.why b{color:#1F5A4B}
+.pcodes{margin:0 0 14px;padding:12px 13px;border:1px solid #DCE3EF;border-radius:12px;background:#F7F9FC}
+.pc-h{margin:0 0 8px;font-size:.9375rem;font-weight:800;color:#1B2A4A;letter-spacing:.02em}
+.pc-sub{display:block;margin-top:3px;font-size:.8125rem;font-weight:600;color:#8A94A6;letter-spacing:0}
+.pc-list li{padding:9px 0;border-top:1px dashed #DCE3EF}
+.pc-list li:first-child{border-top:0;padding-top:0}
+.pc-head{display:flex;align-items:center;gap:7px;margin:0 0 5px}
+.pc-dot{width:14px;height:14px;border-radius:3px;flex:none;border:1px solid rgba(17,24,39,.16)}
+.pc-name{font-size:.875rem;font-weight:800;color:#1F2937}
+.pc-line{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 6px;padding-left:12px;font-size:.875rem;line-height:1.75;color:#374151;word-break:break-word}
+.pc-line em{font-style:normal;font-weight:800;color:#0F766E;font-size:.8125rem;background:#E6F5F2;border-radius:4px;padding:1px 5px;vertical-align:1px;white-space:nowrap}
+.pc-page{display:inline-block;padding:1px 8px;border:1px solid #E9CB80;border-radius:6px;background:#FFF3CE;color:#7A3E06;font-weight:900;font-size:1.0625rem;line-height:1.35;font-variant-numeric:tabular-nums;letter-spacing:.03em;vertical-align:1px}
+.pc-code{font-size:.8125rem;font-weight:600;color:#6B7280;letter-spacing:.01em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pc-nm{color:#111827;font-weight:700;white-space:nowrap}
+.pc-de{font-size:.8125rem;font-weight:700;color:#6B7280;white-space:nowrap}
+.pc-de.warn{color:#B45309}
+.strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;background:#EDEFF2}
+.strip figure{position:relative;margin:0}
+.strip img{width:100%;aspect-ratio:3/4;object-fit:cover}
+.strip figcaption{position:absolute;left:0;right:0;bottom:0;padding:2px 3px;font-size:.6875rem;font-weight:700;color:#fff;text-align:center;background:rgba(17,24,39,.55)}
+.swcard{display:flex;gap:9px;align-items:flex-start;margin:0 0 12px;padding:8px;border:1px solid #E7DFD2;border-radius:12px;background:#FBF9F5}
+.swcard img{width:68px;flex:none;border-radius:8px}
+.swcard figcaption{font-size:.8125rem;line-height:1.6;color:#6B7280}
+.callout{margin:16px 0 0;padding:12px 14px;border-radius:12px;background:#FFF9EF;border:1px solid #F2E2C4;font-size:.9375rem;line-height:1.68;color:#5B4A2F}
+.callout b{color:#8A4B0F;font-weight:800}
+@media(max-width:420px){.callout{font-size:.875rem;padding:11px 12px}}
+.foot{margin:30px 0 0;padding:22px 0 40px;border-top:1px solid var(--line);font-size:.875rem;color:#9CA3AF;line-height:1.7}
+.foot b{color:#6B7280}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,15,25,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.lb[hidden]{display:none}
+.lb img{max-width:100%;max-height:82vh;border-radius:10px}
+.lb-cap{color:#D1D5DB;font-size:.9375rem;margin:10px 0 0;text-align:center}
+.lb-x{position:absolute;top:calc(10px + env(safe-area-inset-top));right:12px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,14px);background:#111827;color:#fff;font-size:.9375rem;font-weight:700;padding:10px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;z-index:120}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media(min-width:640px){
+  .sw-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card-body{padding:20px}
+  .stats{max-width:460px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.site-header{position:sticky;top:0;z-index:45;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line)}
+.hdr{display:flex;align-items:center;gap:16px;height:60px;max-width:var(--wrap);margin:0 auto;padding:0 18px}
+.brand{display:inline-flex;align-items:center;gap:8px;color:#111827;font-weight:800;font-size:1remrem;white-space:nowrap}
+.brand svg{width:24px;height:24px}
+.back{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:.9375rem;font-weight:700;color:#1B2A4A;border:1px solid #D1D5DB;border-radius:8px;padding:8px 12px;min-height:40px}
+.back:active{background:#F3F4F6}
+.navmini{display:none}
+@media(min-width:900px){.navmini{display:flex;gap:18px;margin-left:22px}.navmini a{font-size:.9375rem;font-weight:600;color:#374151}.navmini a:hover{color:#0F766E}}
+</style></head>
+<body><main><div class="wrap" style="padding-top:20px"><article class="card" id="q1">
+  <figure class="photo" data-cap="화이트 + 파우더 블루 바닥 + 월넛">
+    <img src="./assets/color-guide/ig1-02.jpg" alt="화이트 + 파우더 블루 바닥 + 월넛 예시 사진" loading="lazy" decoding="async">
+    <span class="zoom" aria-hidden="true">+ 크게 보기</span>
+    <figcaption>슬라이드 2 / 사진 영역</figcaption>
+  </figure>
+  <div class="card-body">
+    <h3>1. 화이트 + 파우더 블루 바닥 + 월넛</h3>
+    <p class="sub">카페 주방·바 카운터 — 밝고 위생적인 인상</p>
+    <div class="sw-row"><button class="sw" data-hex="#EAF2F2" aria-label="쿨 화이트 #EAF2F2 복사"><span class="sw-chip" style="background:#EAF2F2"></span><span class="sw-txt"><b>#EAF2F2</b><em>쿨 화이트</em><i>벽·카운터·집기 기본색</i></span></button><button class="sw" data-hex="#AFCFD8" aria-label="파우더 블루 #AFCFD8 복사"><span class="sw-chip" style="background:#AFCFD8"></span><span class="sw-txt"><b>#AFCFD8</b><em>파우더 블루</em><i>바닥(대면적)</i></span></button><button class="sw" data-hex="#4D3624" aria-label="다크 월넛 #4D3624 복사"><span class="sw-chip" style="background:#4D3624"></span><span class="sw-txt"><b>#4D3624</b><em>다크 월넛</em><i>우드 집기·선반 포인트</i></span></button></div>
+    <div class="pcodes"><p class="pc-h">노루 · 삼화 최근접 코드<span class="pc-sub">ΔE00 색차 · 작을수록 가까움 · 0008A = 삼화 컬러칩 번호</span></p><ul class="pc-list"><li><span class="pc-head"><span class="pc-dot" style="background:#EAF2F2"></span><span class="pc-name">쿨 화이트</span></span><span class="pc-line"><em>노루</em><b>WT 1128</b> Pure Sky<span class="pc-de">ΔE 2.4 · 색견본 확인</span></span><span class="pc-line"><em>삼화</em><span class="pc-page" title="삼화 컬러칩 번호 0008A">0008A</span><span class="pc-code">(SH S 0502-B)</span><span class="pc-nm">Winter White</span><span class="pc-de">ΔE 1.4 · 거의 동일</span></span></li><li><span class="pc-head"><span class="pc-dot" style="background:#AFCFD8"></span><span class="pc-name">파우더 블루</span></span><span class="pc-line"><em>노루</em><b>BT 7192A</b> Bluish Shower<span class="pc-de">ΔE 2.3 · 색견본 확인</span></span><span class="pc-line"><em>삼화</em><span class="pc-page" title="삼화 컬러칩 번호 0088B">0088B</span><span class="pc-code">(SH S 1020-B)</span><span class="pc-nm">Melt Water</span><span class="pc-de">ΔE 1.6 · 거의 동일</span></span></li><li><span class="pc-head"><span class="pc-dot" style="background:#4D3624"></span><span class="pc-name">다크 월넛</span></span><span class="pc-line"><em>노루</em><b>DB 9034</b> Morning Coffee<span class="pc-de warn">ΔE 10.5 · 조색 필요 / 근사치</span></span><span class="pc-line"><em>삼화</em><span class="pc-page" title="삼화 컬러칩 번호 0142F">0142F</span><span class="pc-code">(SH S 8010-Y70R)</span><span class="pc-nm">Old Oak</span><span class="pc-de warn">ΔE 5.1 · 조색 필요 / 근사치</span></span></li></ul></div><p class="ratio-label">면적 배분</p>
+    <div class="rbar"><i style="width:55.00%;background:#EAF2F2" title="쿨 화이트 55%"></i><i style="width:25.00%;background:#AFCFD8" title="파우더 블루 25%"></i><i style="width:20.00%;background:#4D3624" title="다크 월넛 20%"></i></div>
+    <p class="ratio-txt">쿨 화이트 55% · 파우더 블루 25% · 다크 월넛 20%</p>
+    <div class="note verified"><span class="tag">영상·원문에서 확인된 내용</span><p>사진 속 흰 벽·흰 카운터·흰 집기에 파우더 블루 바닥과 월넛 선반·집기가 놓인 구성. 왼쪽 벽에는 블러시 핑크 타일이 작은 면적으로 들어가 있다. 슬라이드에 세 HEX가 그대로 적혀 있다.</p></div>
+    <div class="note match"><span class="tag">어울리는 마감·가구·공간 (실무 제안)</span>
+      <ul class="ml"><li><b>바닥재</b> 파우더 블루 무광 에폭시·동색 LVT</li><li><b>가구·소품</b> 흰 라커 집기, 월넛 선반, 블러시 핑크 타일 포인트</li><li><b>어울리는 공간</b> 카페 주방·베이커리 — 위생적인 인상이 필요한 매장</li></ul>
+    </div>
+    <div class="note tip"><span class="tag">현장 응대 포인트 (제일페인트 실무)</span><p>바닥에 색을 넣는 배색은 매장·카페에서 가장 효과가 크지만, 도료로 낼 때는 <b>에폭시 또는 우레탄 바닥재</b>로 가야 발소리·스크래치·물걸레에 버팁니다. 파우더 블루는 무광(광택 10% 이하)으로 떨어뜨려야 사진처럼 부드럽게 보이고, 광택이 서면 얼룩이 그대로 비칩니다. 월넛 톤은 칠이 아니라 <b>투명 착색(스테인)이나 우드 필름</b>이 정답에 가깝습니다.</p></div>
+    <a class="src" href="https://www.instagram.com/p/De02-CcoEXo/" target="_blank" rel="noopener">원본 피드 보기 · 큐플레이스 (qplace_interior) →</a>
+  </div>
+</article></div><section class="section" id="guide">
+  <div class="wrap">
+    <h2 class="sec-h">실무 적용 가이드</h2>
+    <p class="sec-p">위 39사례에서 뽑아낸 배색 원리와, 매장에서 바로 쓰는 도료·마감·문 색·노루·삼화 코드 매칭입니다. 원리 3가지는 인스타 원문 내용을 정리한 것이고, 표·체크리스트·멘트는 제일페인트 실무 기준으로 정리했습니다.</p>
+
+    <div class="gcard">
+      <h3>1. 배색 원리 3가지</h3>
+      <ol class="ol">
+        <li><b>주색은 면적, 포인트는 한 면.</b> 큐플레이스 원문 그대로 &mdash; &ldquo;메인 컬러를 어디에 얼마나 사용할지, 어떤 색으로 균형을 잡아줄지&rdquo;. 카페 사례 5건 모두 기본색 50~60% &middot; 보조색 20~30% &middot; 포인트 5~20% 구조였습니다.</li>
+        <li><b>벽과 천장·트림을 나눠 2톤.</b> 1960년대 미국 주택 문법 &mdash; &ldquo;walls in one color, ceiling and trim in another&rdquo;. 벽 70~80% : 천장·트림 20~30%.</li>
+        <li><b>한 요소만 바꿔 대비 만들기.</b> KL LIVING 릴스는 같은 캐비닛·같은 벽에서 백스플래시만 교체해 인상이 달라지는 것을 보여줍니다. 전체 시공이 아니라 부분 시공으로 제안할 근거가 됩니다.</li>
+      </ol>
+    </div>
+
+    <div class="gcard">
+      <h3>2. 공간별 도료·마감 매칭</h3>
+      <div class="tw"><table>
+        <thead><tr><th>적용 부위</th><th>권장 마감</th><th>광택</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td>거실·카페 홀 벽</td><td>수성 아크릴 실내용</td><td>무광 5~10%</td><td>색이 가장 정확히 보임. 대면적은 무광이 안전</td></tr>
+          <tr><td>주방 벽·상부장</td><td>수성 아크릴(주방용)·에나멜</td><td>세미글로스 20~30%</td><td>기름때 닦임. 무광은 얼룩이 남음</td></tr>
+          <tr><td>화장실·욕실</td><td>수성 방균·방수형</td><td>세미글로스</td><td>타일 상부·천장은 방균 계열</td></tr>
+          <tr><td>외부 창틀·문·파사드</td><td>우레탄·불소 계열</td><td>유광~세미글로스</td><td>자외선 변색에 강함</td></tr>
+          <tr><td>매장 바닥</td><td>에폭시·우레탄 바닥재</td><td>무광~세미</td><td>물걸레·스크래치 대응. 파스텔은 오염에 약함</td></tr>
+          <tr><td>몰딩·걸레받이</td><td>에나멜</td><td>세미글로스</td><td>벽과 같은 계열로 10cm 올려 마감</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="gcard">
+      <h3>3. 조색·시공 체크리스트</h3>
+      <ul class="ck">
+        <li>HEX는 <b>화면 색</b>입니다. 인쇄 색견본·페인트 칩과 100% 같지 않으므로 조색은 반드시 <b>실물 시료</b>로 확정하세요.</li>
+        <li>시료는 <b>마른 뒤</b> 비교하세요. 젖었을 때와 마른 뒤 1~2톤 차이가 납니다(특히 파스텔·민트 계열).</li>
+        <li>진한 적색·버건디·네이비는 <b>하도(회색 계열)</b>가 필수입니다. 흰 벽에 바로 칠하면 3~4회가 필요합니다.</li>
+        <li>같은 색도 <b>조명 색온도</b>에 따라 다르게 보입니다. 매장 조명(2700~3000K) 아래에서 확인하세요.</li>
+        <li>현장 채광(남향/북향)과 마감재가 반사하는 색까지 보고, <b>벽 1면 시공 후 재확인</b>을 기본으로 잡습니다.</li>
+      </ul>
+    </div>
+
+    <div class="gcard">
+      <h3>4. 고객 응대 멘트 (그대로 읽어도 되는 문장)</h3>
+      <div class="script">
+        <p>&ldquo;사진 색은 화면 색이라서 그대로 조색하면 조금 다르게 보일 수 있어요. 이 색으로 <b>10cm 시료</b>를 칠해 드릴 테니 실제 벽에서 한 번 보시고 정하시죠.&rdquo;</p>
+        <p>&ldquo;전체를 다 하지 않아도 됩니다. 이 사진처럼 <b>수납장 안쪽이나 상판 위 60cm만</b> 바꿔도 분위기가 크게 달라져요. 예산도 그만큼 줄어듭니다.&rdquo;</p>
+        <p>&ldquo;이 색은 진해서 흰 벽 위에 바로 칠하면 3~4번 발라야 합니다. <b>하도를 먼저 깔면 2번</b>으로 끝나서 전체 비용은 비슷하거나 오히려 쌉니다.&rdquo;</p>
+      </div>
+    </div>
+
+    <div class="gcard">
+      <h3>5. 상가 내벽·천장 도료 선택</h3>
+      <div class="tw"><table>
+        <thead><tr><th>부위</th><th>권장 도료</th><th>광택</th><th>메모</th></tr></thead>
+        <tbody>
+          <tr><td>상가 내벽(일반)</td><td>수성 아크릴 실내용</td><td>무광 5~10%</td><td>대면적은 무광. 색이 가장 정확히 보임</td></tr>
+          <tr><td>식당 홀 하부·카운터 뒤</td><td>수성 아크릴(주방용)·수성 에폭시</td><td>세미글로스 20~40%</td><td>기름때·손때 닦임. 무광은 얼룩이 남음</td></tr>
+          <tr><td>천장(일반)</td><td>수성 아크릴 천장용</td><td>무광 3~5%</td><td>반사·눈부심 최소. 얼룩이 덜 보임</td></tr>
+          <tr><td>노출 천장(배관·덕트)</td><td>에폭시·우레탄계 또는 수성 아크릴 무광</td><td>무광</td><td>블랙은 하도 필수. 소방 설비는 도장 금지</td></tr>
+          <tr><td>화장실·주방 상부 천장</td><td>수성 방균·방수형</td><td>세미글로스</td><td>곰팡이·결로 대응</td></tr>
+          <tr><td>네일샵·약국 등 약품 접촉</td><td>수성 에폭시·우레탄 상도</td><td>세미~반광</td><td>아세톤·알코올·소독제에 강함</td></tr>
+          <tr><td>외부 파사드·셔터</td><td>우레탄·불소 계열</td><td>유광~세미</td><td>자외선 변색·오염에 강함</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="ck">
+        <li><b>천장고 기준</b> — 2.7m 이상은 어두운 천장 가능, 2.4~2.6m는 한두 단계만, 2.4m 이하는 화이트·라이트그레이가 안전합니다.</li>
+        <li><b>노출 천장</b>은 배관·덕트·행거를 <b>모두 같은 색</b>으로 칠해야 정리돼 보입니다. 한 부분만 다른 색이면 그 부분이 도드라집니다.</li>
+        <li>스프링클러 헤드·화재감지기·비상유도등은 <b>도장하지 않습니다</b>(기능·감도 문제). 마스킹 후 시공하세요.</li>
+        <li>영업 중 시공이면 <b>저취(저VOC) 수성</b>과 야간 작업으로 나누고, 건조 4~6시간·완전 경화 5~7일을 기준으로 오픈 일정을 잡습니다.</li>
+      </ul>
+    </div>
+
+    <div class="gcard">
+      <h3>6. 화이트 도배 × 문 색 고르는 순서</h3>
+      <div class="tw"><table>
+        <thead><tr><th>도배 화이트</th><th>겉보기</th><th>잘 맞는 문 색</th><th>피할 조합</th></tr></thead>
+        <tbody>
+          <tr><td>쿨 화이트</td><td>살짝 푸른·회색 기</td><td>웜그레이·더스티블루·차콜·네이비</td><td>버터크림(문만 노랗게 뜸)</td></tr>
+          <tr><td>뉴트럴 화이트</td><td>무색에 가까운 순백</td><td>거의 모든 색(가장 안전)</td><td>없음 — 실패가 가장 적음</td></tr>
+          <tr><td>크림·아이보리 화이트</td><td>노란·베이지 기</td><td>버터크림·오크·세이지·브라스 계열</td><td>네이비·차콜(문이 탁해지고 벽이 누렇게)</td></tr>
+        </tbody>
+      </table></div>
+      <ol class="ol">
+        <li><b>도배 톤 확인.</b> 벽지 샘플을 흰 종이 위에 놓고 3000K(거실)·4000K(주방) 조명에서 각각 봅니다. 같은 화이트라도 조명에 따라 노랑·파랑이 갈립니다.</li>
+        <li><b>문 색은 한 단계만.</b> 무채색(웜그레이·그레이지)은 가장 무난하고, 유채색(세이지·더스티블루)은 포인트 문 1~2짝, 딥톤(네이비·딥그린)은 현관·중문에 씁니다.</li>
+        <li><b>손잡이와 마루로 마무리.</b> 밝은 문에는 무광 블랙(대비), 어두운 문에는 브라스·니켈(반짝). 오크 마루에는 크림화이트, 회색 마루에는 뉴트럴·쿨화이트가 이어집니다.</li>
+      </ol>
+      <ul class="ck">
+        <li>문 도장은 <b>수성 우드용 에나멜 저광(10~20%)</b>이 기본, 손때 많은 화장실·현관은 세미글로스로 올립니다.</li>
+        <li>무늬목·래커 문은 샌딩 + 부착력 테스트 후 시공하고, <b>필름 마감 문은 도장 대신 교체·필름</b>을 안내합니다.</li>
+        <li>도장 두께가 두꺼우면 문이 처지고 닫힘이 뻑뻑해지므로 유격 2~3mm를 남기고 경첩을 재조정합니다.</li>
+        <li>흰색·크림 계열은 <b>비황변 등급</b>으로 지정해야 1~2년 뒤 누렇게 변하지 않습니다.</li>
+      </ul>
+    </div>
+
+    <div class="gcard">
+      <h3>7. 노루페인트·삼화페인트 코드 읽는 법</h3>
+      <ul class="ck">
+        <li>카드마다 <b>노루</b>·<b>삼화</b> 공식 코드와 <b>ΔE(CIEDE2000 색차)</b>를 붙였습니다. ΔE가 작을수록 원래 색에 가깝습니다.</li>
+        <li>ΔE <b>2 미만</b> 거의 동일 · <b>2~5</b> 가까움(색견본 확인) · <b>5 이상</b> 조색 필요 / 근사치 — 5를 넘으면 그 코드는 "이 색"이 아니라 "이 색 근처"입니다.</li>
+        <li>기준값이 <b>화면·영상 RGB</b>라 실제 도료와 다릅니다. 발주·조색 전에 <b>매장 실물 컬러칩(견본)</b>으로 대조하고, 넓은 벽은 시료를 칠해 확정하세요.</li>
+        <li>삼화 코드 앞의 <b>0008A</b> 같은 번호는 <b>삼화 컬러칩 번호</b>(4자리+알파벳)입니다. 매장 삼화 컬러칩에서 그 번호 칸을 바로 펴서 대조하면 됩니다.</li>
+        <li>ΔE 5 이상인 색은 <b>삼화 NCS</b>가 맞는 경우가 많습니다. 노루 컬러가이드는 진한 색·채도 높은 색 커버리지가 낮습니다(코발트 ΔE 12, 네이비 ΔE 15).</li>
+        <li>삼화 컬러의 <b>표기 이름과 실제 색이 다른 경우</b>가 있습니다(예: SH S 7020-R80B "Sepia Mauve" = 실제 네이비). 이름이 아니라 <b>코드·견본</b>으로 확인하세요.</li>
+      </ul>
+      <div class="tw"><table>
+        <thead><tr><th>브랜드</th><th>대조한 공식 색</th><th>강한 영역</th><th>약한 영역</th></tr></thead>
+        <tbody>
+          <tr><td>노루페인트</td><td>6,864색<br>(컬러가이드 1,512 · COVER ALL 1,512 · NR 1,221 · PANTONE 2,619)</td><td>무채색·파스텔·뉴트럴이 촘촘해 실내 벽 색은 대부분 ΔE 2~3</td><td>채도 높은 색(VV 133색)·아주 어두운 색 — 조색 필요</td></tr>
+          <tr><td>삼화페인트</td><td>7,321색<br>(NCS 950 · NCS 600 · SAMHWA 1200 · Other A~E)</td><td>진한 색·채도 높은 색·어두운 우드 계열을 거의 정확히 커버</td><td>일부 코드의 표기 이름과 실제 HEX가 다름 — 코드 우선</td></tr>
+        </tbody>
+      </table></div>
+      <ul class="ck" style="margin-top:12px">
+        <li><b>발주 순서</b> — ① 코드로 후보 2~3개 추림 → ② 매장 컬러칩 대조 → ③ 고객 집 조명 아래 시료 칠 → ④ 조색량·잔량까지 정해 발주. 이 순서를 지키면 "칠하고 나서 색이 다르다"는 클레임이 거의 없어집니다.</li>
+      </ul>
+    </div>
+
+    <div class="gcard warn">
+      <h3>8. 읽는 법 · 주의</h3>
+      <ul class="ck">
+        <li><b>영상·원문에서 확인된 내용</b>은 인스타 게시물의 캡션·화면에 실제로 적혀 있거나 보이는 내용입니다.</li>
+        <li><b>현장 응대 포인트</b>는 제일페인트 실무 관점의 해석·제안이며, 원 게시물의 주장이 아닙니다.</li>
+        <li>② 1960s 조합의 HEX는 영상에 표시된 <b>색견본 막대의 픽셀 실측값</b>, ③ 키친 장면의 HEX는 화면에서 측정한 <b>근사값</b>입니다(영상 압축·조명 영향). ① 카페 팔레트의 HEX는 원 게시물에 적힌 값 그대로입니다.</li>
+        <li><b>④ 상가 내벽·천장(5) · ⑤ 아파트 문·화이트 도배(6)</b>의 이미지는 AI로 만든 <b>매장 상담용 배색 예시</b>이며 실제 제일페인트 시공 사진이 아닙니다. HEX는 조색 기준값으로, 화면·조명에 따라 달라지므로 반드시 실물 시료로 확정하세요.</li>
+        <li><b>⑥⑦⑧ 2026-11-20 수집 릴스</b> — ⑥⑦은 인스타그램이 <b>AI 콘텐츠</b>로 표시한 영상입니다. ⑥의 HEX는 영상에 인쇄된 견본 막대의 픽셀값, ⑦은 로우키 보정된 프레임 실측값(실제 도료보다 어둡게 잡힘), ⑧은 물감 스와치 중앙값입니다. 셋 다 실제 시공 사진이 아니므로 색은 반드시 실물 견본으로 확정하세요.</li>
+        <li>사진·영상의 저작권은 원 제작자에게 있습니다. 이 자료는 <b>내 상담 참고용</b>이며, 고객에게 재배포하거나 상업적으로 재사용하지 마세요. 출처 링크는 원문으로 연결됩니다.</li>
+      </ul>
+    </div>
+  </div>
+</section></main></body></html>
