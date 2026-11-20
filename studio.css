@@ -127,7 +127,7 @@ summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 .process-flow p{margin:0;color:#41594c;line-height:1.6;font-size:.94rem}
 
 /* ---------- 주요 시공 지역 ---------- */
-.territory{background:#fff;border:1px solid #ccd6cc;border-radius:6px;overflow:hidden;max-width:960px}
+.territory{background:#fff;border:1px solid #ccd6cc;border-radius:6px;overflow:hidden;max-width:none}
 .map-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid #d9e3d6}
 .map-head span{font-size:.83rem;color:#55655a;display:block}
 .map-head h3{font-size:1.35rem;margin:2px 0 0;letter-spacing:-.04em}
