@@ -1,0 +1,111 @@
+/* ==========================================================================
+   제일페인트 — 컬러 트렌드 (trends.html)
+   base.css + studio.css 위에 덮어쓰는 페이지 전용 스타일
+   ========================================================================== */
+
+.trendtop{background:var(--green);color:#fff;position:relative;overflow:hidden}
+.trendtop::after{content:"";position:absolute;right:-8%;top:-30%;width:52%;height:180%;background:linear-gradient(120deg,rgba(197,162,109,.26),rgba(197,162,109,0) 62%);transform:skew(-14deg);pointer-events:none}
+.trendtop .inside{position:relative;max-width:var(--wrap);margin:auto;padding:clamp(42px,5.6vw,76px) clamp(20px,4vw,56px) clamp(38px,4.6vw,60px)}
+.trendtop .kicker{margin:0 0 14px;font-size:.9rem;font-weight:650;letter-spacing:.02em;color:#cfe0d3}
+.trendtop h1{margin:0 0 16px;color:#fff;font-size:clamp(2rem,3.6vw,2.9rem);line-height:1.24;letter-spacing:-.025em;font-weight:650}
+.trendtop p.lead{margin:0;max-width:46em;font-size:1.02rem;line-height:1.78;color:#e6efe6}
+.trendtop .topmeta{display:flex;flex-wrap:wrap;gap:8px 22px;margin:22px 0 0;font-size:.86rem;color:#c9dbcb}
+.trendtop .topmeta b{color:#fff;font-weight:650}
+
+/* ---------- 회차 아카이브 ---------- */
+.archive{background:var(--soft);border-bottom:1px solid var(--line)}
+.archive .inner{max-width:var(--wrap);margin:auto;padding:22px clamp(20px,4vw,56px);display:flex;align-items:center;gap:clamp(14px,2.6vw,34px);flex-wrap:wrap}
+.archive h2{margin:0;font-size:.9rem;font-weight:650;color:#425b4d;letter-spacing:-.01em;white-space:nowrap}
+.archive ol{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.archive a{display:inline-flex;align-items:baseline;gap:8px;padding:9px 15px;border:1px solid #cdd8cd;border-radius:999px;background:#fff;color:#24402f;font-size:.88rem;line-height:1.3}
+.archive a b{font-weight:700}
+.archive a span{font-size:.8rem;color:#5f7167}
+.archive a:hover{border-color:#8ea795;background:#fbfdfa}
+.archive a[aria-current="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.archive a[aria-current="true"] span{color:#c9dbcb}
+.archive .next{margin:0 0 0 auto;font-size:.82rem;color:#5f7167}
+
+/* ---------- 회차 본문 ---------- */
+.issue{padding-block:clamp(44px,5vw,72px)}
+.issue-head{max-width:var(--wrap);margin:0 auto 30px;padding:0 clamp(20px,4vw,56px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 24px;border-bottom:1px solid var(--line);padding-bottom:22px}
+.issue-head .no{margin:0;display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;color:#fff;background:var(--green-md);padding:5px 11px;border-radius:3px;letter-spacing:.01em}
+.issue-head h2{margin:0;font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:-.03em;line-height:1.3;font-weight:700}
+.issue-head .date{margin:0;font-size:.86rem;color:var(--muted)}
+.issue-head .sum{margin:0;flex:1 1 100%;font-size:.98rem;line-height:1.72;color:#45594e;max-width:62em}
+
+/* ---------- 트렌드 카드 ---------- */
+.trends{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,4vw,56px);display:grid;gap:clamp(24px,3vw,36px)}
+.trend{background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.trend-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 16px;padding:24px clamp(18px,2.6vw,32px) 18px;border-bottom:1px solid var(--line);background:#fbfcfa}
+.trend-head .num{margin:0;font:700 .78rem/1 var(--mono,monospace);letter-spacing:.16em;color:#6f8a76}
+.trend-head h3{margin:0;font-size:clamp(1.35rem,2.2vw,1.72rem);letter-spacing:-.035em;line-height:1.3;font-weight:750}
+.trend-head .sub{margin:0;flex:1 1 100%;font-size:.95rem;color:#4d6156;line-height:1.65}
+.trend-head .ratio{margin:0 0 0 auto;font-size:.82rem;color:#5f7167}
+
+.trend-body{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,3vw,38px);padding:clamp(20px,2.8vw,32px)}
+.trend-body h4{margin:0 0 8px;font-size:.86rem;font-weight:700;color:#3d6a52;letter-spacing:.02em}
+.trend-body h4+h4,.trend-body p+h4,.trend-body ul+h4{margin-top:20px}
+.trend-body p{margin:0;font-size:.95rem;line-height:1.78;color:#3f5348}
+.trend-body .why strong{color:#1f4034;font-weight:700}
+.trend-use{margin:0;display:grid;gap:9px}
+.trend-use li{display:grid;grid-template-columns:82px minmax(0,1fr);gap:10px;font-size:.92rem;line-height:1.6;color:#43574c;padding-top:9px;border-top:1px dashed #e2e8e2}
+.trend-use li:first-child{border-top:0;padding-top:0}
+.trend-use .k{font-size:.8rem;font-weight:700;color:#5d7a66;padding-top:2px}
+.trend-use .v b{color:#22392f;font-weight:700}
+
+/* 색 칩 — 누르면 삼화 칩번호 · 노루 코드가 복사됩니다 */
+.chips{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.chips li{margin:0}
+.chips .chip{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;width:100%;padding:9px 11px;border:1px solid #e2e8e2;border-radius:5px;background:#fcfdfb;font:inherit;color:inherit;text-align:left;cursor:pointer;transition:border-color .15s ease,background-color .15s ease}
+.chips .chip:hover{border-color:#b7c8bb;background:#fff}
+.chips .chip.copied{border-color:#47755e;background:#eef4ec}
+.chips .chip:focus-visible{outline:2px solid #47755e;outline-offset:2px}
+.chips .sw{width:46px;height:46px;border-radius:4px;border:1px solid rgba(0,0,0,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.chips .nm{display:block;font-size:.93rem;font-weight:700;color:#22392f;line-height:1.35}
+.chips .cd{display:block;margin-top:3px;font-size:.8rem;color:#5c7266;line-height:1.45;letter-spacing:0}
+.chips .cd b{font-weight:650;color:#2c4b3b}
+.chips .hex{display:block;margin-top:1px;font:600 .74rem/1.4 var(--mono,monospace);color:#8a9a8f;letter-spacing:.04em}
+.chips-note{margin:11px 0 0;font-size:.79rem;line-height:1.6;color:#6b7d72}
+
+/* 예시 사진 */
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--line);border-top:1px solid var(--line)}
+.shots figure{margin:0;position:relative;background:#eaeee7;overflow:hidden}
+.shots img{width:100%;height:238px;object-fit:cover;display:block}
+.shots figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 11px;font-size:.78rem;line-height:1.5;color:#fff;background:linear-gradient(0deg,rgba(12,30,25,.82),rgba(12,30,25,0))}
+
+.trend-foot{display:flex;flex-wrap:wrap;gap:6px 18px;padding:13px clamp(18px,2.6vw,32px);background:#fbfcfa;border-top:1px solid var(--line);font-size:.78rem;color:#6b7d72}
+.trend-foot b{font-weight:650;color:#4a6152}
+
+/* ---------- 복사 알림 ---------- */
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,14px);max-width:calc(100vw - 32px);padding:11px 16px;border-radius:999px;background:#122e27;color:#fff;font-size:.9rem;font-weight:650;text-align:center;opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;z-index:120}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- 회차 마무리 · 상담 ---------- */
+.issue-end{max-width:var(--wrap);margin:clamp(32px,4vw,48px) auto 0;padding:0 clamp(20px,4vw,56px)}
+.issue-end .inner{background:var(--green-soft);border:1px solid #dbe5d8;border-radius:6px;padding:clamp(24px,3vw,34px)}
+.issue-end h2{margin:0 0 10px;font-size:clamp(1.2rem,2vw,1.5rem);letter-spacing:-.03em}
+.issue-end p{margin:0 0 18px;font-size:.95rem;line-height:1.72;color:#3f5348;max-width:52em}
+.issue-end .links{display:flex;flex-wrap:wrap;gap:8px}
+.issue-end .links a{display:inline-flex;align-items:center;gap:7px;padding:11px 18px;border-radius:3px;background:var(--green);color:#fff;font-size:.92rem;font-weight:650}
+.issue-end .links a+a{background:#fff;color:var(--green);border:1px solid #b8c6b8}
+.issue-end .links a:hover{filter:brightness(1.05)}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:900px){
+  .trend-body{grid-template-columns:minmax(0,1fr)}
+  .trend-head .ratio{margin-left:0;flex:1 1 100%}
+}
+@media (max-width:600px){
+  .trendtop .inside{padding-block:38px 34px}
+  .trendtop h1{font-size:clamp(1.72rem,7vw,2rem)}
+  .archive .inner{padding-block:16px}
+  .archive .next{margin-left:0;flex:1 1 100%}
+  .issue-head{padding-bottom:18px}
+  .trend-head{padding:20px 16px 15px}
+  .trend-body{padding:18px 16px 20px}
+  .shots{grid-template-columns:minmax(0,1fr)}
+  .shots img{height:212px}
+  .trend-foot{padding:12px 16px}
+  .issue-end{padding-inline:16px}
+  .trend-use li{grid-template-columns:70px minmax(0,1fr);gap:8px}
+}
