@@ -1,0 +1,275 @@
+/* ==========================================================================
+   제일페인트 — 스튜디오형 메인 리뉴얼 (2026-11)
+   기존 index.html의 기본 스타일 위에 덮어쓰는 방식으로 동작합니다.
+   딥그린 #183C33 / 화이트 / 샌드·아이보리 팔레트
+   ========================================================================== */
+
+:root{
+  --ink:#192b29; --body:#374640;
+  --green:#183c33; --green-dk:#122e27; --green-md:#20523f; --green-soft:#e9eee6;
+  --sand:#f5f3df; --gold:#c5a26d;
+  --line:#d9ded9; --soft:#f2f5ef; --muted:#5f7167;
+  --navy:#183c33; --navy-dark:#122e27; --teal:#47755e; --teal-ink:#295646;
+  --radius:4px; --wrap:1240px;
+}
+
+body{color:var(--body);word-break:keep-all;background:#fff}
+h1,h2,h3{color:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,
+summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+/* ---------- 상단 헤더 ---------- */
+.mast{position:sticky;top:0;z-index:60;background:#fff;border-bottom:1px solid var(--line)}
+.mastin{max-width:var(--wrap);margin:auto;padding:0 clamp(20px,4vw,56px);min-height:76px;display:flex;align-items:center;gap:35px}
+.wordmark{display:flex;align-items:center;gap:10px;text-decoration:none;color:#163c31;line-height:1.04;font-size:22px;letter-spacing:-.07em;font-weight:900;white-space:nowrap}
+.wordmark small{display:block;letter-spacing:.18em;font:700 10px/1.6 Arial;letter-spacing:.18em;color:#4d6b5c}
+.wordmark i{width:28px;height:36px;flex:none;display:block;transform:skew(-12deg);background:linear-gradient(to bottom,#183c33 0 28%,transparent 28% 35%,#52745b 35% 63%,transparent 63% 70%,#c5a26d 70%)}
+.mast nav{display:flex;gap:28px;margin-left:auto}
+.mast nav a{color:var(--ink);font-weight:650;font-size:15px;white-space:nowrap}
+.mast nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.inquire{display:inline-flex;align-items:center;justify-content:center;padding:11px 22px;background:var(--green);color:#fff!important;text-decoration:none;font-weight:700;border-radius:3px;white-space:nowrap;transition:background-color .15s ease}
+.inquire:hover{background:var(--green-dk)}
+
+/* ---------- 히어로 ---------- */
+.coverhero{position:relative;isolation:isolate;overflow:hidden;color:#fff;background:#172b25}
+.heroimage{position:absolute;inset:0;z-index:-1;background:#172b25}
+.hero-slide{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:center 52%;opacity:0;transition:opacity 1.35s ease-in-out}
+.hero-slide.active{opacity:1}
+.heroimage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,28,24,.94),rgba(10,32,27,.72) 36%,rgba(16,28,25,.12) 82%),linear-gradient(0deg,rgba(12,26,23,.42),transparent 34%)}
+.coverhero .inside{position:relative;max-width:var(--wrap);margin:auto;padding:clamp(64px,8vw,116px) clamp(20px,4vw,56px)}
+.coverhero .eyeline{margin:0 0 21px;font-size:.88rem;letter-spacing:.07em;font-weight:750;color:#dfe9dd}
+.coverhero h1{margin:0 0 22px;color:#fff;font-size:clamp(2.5rem,5.2vw,4.5rem);line-height:1.13;letter-spacing:-.065em}
+.coverhero .inside>p:not(.eyeline){margin:0;font-size:clamp(1rem,1.7vw,1.16rem);line-height:1.7;color:#eef3ea;max-width:34em}
+.herolinks{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.herolinks a{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 24px;background:var(--sand);color:#1a302a!important;text-decoration:none;font-weight:700;border-radius:3px;font-size:1rem;border:1px solid transparent;transition:background-color .15s ease,border-color .15s ease}
+.herolinks a:hover{background:#fff}
+.herolinks a+a{color:#fff!important;background:rgba(22,41,36,.5);border:1px solid rgba(255,255,255,.46)}
+.herolinks a+a:hover{background:rgba(22,41,36,.78);border-color:#fff}
+.herolinks a[href^="tel:"]{white-space:nowrap}
+.herolinks .ic{width:17px;height:17px}
+.hero-controls{position:absolute;right:4%;bottom:24px;display:flex;align-items:center;gap:12px;z-index:2}
+.caption{display:grid;text-align:right;color:#fff!important;text-shadow:0 1px 5px rgba(0,0,0,.8)}
+.caption b{font-size:.95rem;font-weight:700}
+.caption span{font-size:.82rem;color:#e3ebe1}
+.caption:hover b{text-decoration:underline}
+.rotation{background:rgba(23,42,36,.72);color:#fff;border:1px solid rgba(255,255,255,.6);border-radius:50%;height:38px;width:38px;font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center}
+.rotation:hover{background:rgba(23,42,36,.95)}
+
+/* ---------- 취급 브랜드 ---------- */
+.brand-line{background:#fafbf8;border-bottom:1px solid var(--line)}
+.brand-line-inner{max-width:var(--wrap);margin:auto;padding:24px clamp(20px,4vw,56px);display:grid;grid-template-columns:auto 1fr;align-items:center;gap:clamp(24px,5vw,72px)}
+.brand-line h2{margin:0;font-size:.92rem;color:#425b4d;font-weight:650;letter-spacing:-.025em;white-space:nowrap}
+.brand-line ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0;padding:0;list-style:none}
+.brand-line li{display:flex;align-items:center;justify-content:center;gap:12px;padding:0 8px;font-size:1rem;font-weight:700;letter-spacing:-.035em;color:#21392d;line-height:1.35;white-space:nowrap}
+.brand-line li+li{border-left:1px solid #d7dfd7}
+.brand-logo{display:grid;place-items:center;width:56px;height:34px;flex:none}
+.brand-logo img{width:auto;height:auto;max-width:100%;max-height:100%;mix-blend-mode:multiply}
+
+/* ---------- 공통 섹션 ---------- */
+.section{padding-block:clamp(50px,6vw,85px)}
+.section.section-alt{background:var(--soft)}
+.section-title{margin:0 0 12px;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.055em;line-height:1.2;font-weight:800;display:block}
+.section-title .ic{display:none}
+.section-lead{margin:0 0 30px;font-size:1rem;color:var(--muted);max-width:58em;line-height:1.75}
+.section-lead strong{color:var(--ink);font-weight:800}
+
+/* ---------- 시공사례 ---------- */
+#cases .cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.case{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;box-shadow:none;transition:border-color .15s ease}
+.case:hover{border-color:#b8c6b8}
+.case-media{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);height:250px;flex:none;overflow:hidden;background:#eef1ea;border-bottom:0}
+.case-media.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.case-media img{width:100%;height:100%;min-width:0;min-height:0;object-fit:cover;aspect-ratio:auto}
+.case-media.two img+img{border-left:1px solid #fff}
+.case-body{padding:20px 22px 24px}
+.case-kind{margin:0 0 5px;font-size:.8rem;font-weight:700;color:#375f48;letter-spacing:.01em}
+.case h3{margin:0 0 8px;font-size:1.12rem;font-weight:800;line-height:1.45;letter-spacing:-.035em}
+.case p{margin:0;font-size:.94rem;line-height:1.72;color:#4a5c51}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.tags li{padding:4px 9px;border:1px solid var(--line);border-radius:3px;background:#f7f8f4;font-size:.75rem;font-weight:600;color:#4a5f51}
+.cases-more{margin:38px 0 0;text-align:center}
+.btn-more{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 30px;background:var(--green);color:#fff;border-radius:3px;font-size:1rem;font-weight:700;transition:background-color .15s ease}
+.btn-more:hover{background:var(--green-dk)}
+.cases-more-note{margin:13px 0 0;font-size:.84rem;color:var(--muted)}
+
+/* ---------- 주요 서비스 ---------- */
+#services{background:#f2f5ef}
+#services .card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#services .card{background:#fff;border:1px solid #dfe5dc;border-radius:4px;padding:24px 26px}
+#services .card:hover{border-color:#b8c6b8}
+#services .card h3{margin:0 0 9px;font-size:1.06rem;font-weight:800;display:flex;align-items:flex-start;gap:10px;letter-spacing:-.035em;line-height:1.45}
+#services .card h3 .ic{width:19px;height:19px;color:#3f6a54;margin-top:3px;flex:none}
+#services .card p{margin:0;font-size:.94rem;line-height:1.72;color:#4a5c51}
+#services .card-wide{grid-column:1/-1}
+
+/* ---------- 색조합 배너 ---------- */
+.guidecall,.guidelead{display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch;gap:8%;background:var(--green-soft);padding:58px max(6%,calc((100% - 1130px)/2));color:#203f34}
+.guidecall .eyeline{margin:0 0 12px;font-size:.86rem;letter-spacing:.04em;font-weight:750;color:#4a6b59}
+.guidecall h2{margin:0 0 14px;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.055em;line-height:1.2;color:#193b30}
+.guidecall p{margin:0 0 24px;font-size:1rem;line-height:1.75;max-width:35em;color:#3c5747}
+.widechips{display:flex;min-height:150px;overflow:hidden;transform:skew(-8deg);margin:8px 20px}
+.widechips i{flex:1;background:#c9b89d}
+.widechips i:nth-child(2){background:#a2a78b}
+.widechips i:nth-child(3){background:#566c46}
+.widechips i:nth-child(4){background:#aa7256}
+.widechips i:nth-child(5){background:#593e33}
+
+/* ---------- 시공 진행 과정 ---------- */
+#process{background:#eff4ef;color:#214434}
+#process h2{color:#193b30}
+.process-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;margin:32px 0 0;padding:0;list-style:none}
+.process-flow li{position:relative}
+.process-flow li:not(:last-child)::after{content:"";position:absolute;top:24px;left:55px;right:-17px;border-top:1px solid #b6c9bf}
+.process-icon{display:grid;place-items:center;width:48px;height:48px;background:var(--green-md);color:#fff;border-radius:14px}
+.process-icon svg{width:26px;height:26px}
+.process-flow h3{margin:15px 0 7px;font-size:1.08rem;line-height:1.35;color:#193b30;letter-spacing:-.03em}
+.process-flow h3 span{margin-right:7px;font:600 .78rem/1 monospace;color:#557867}
+.process-flow p{margin:0;color:#41594c;line-height:1.6;font-size:.94rem}
+
+/* ---------- 주요 시공 지역 ---------- */
+.territory{background:#fff;border:1px solid #ccd6cc;border-radius:6px;overflow:hidden;max-width:960px}
+.map-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid #d9e3d6}
+.map-head span{font-size:.83rem;color:#55655a;display:block}
+.map-head h3{font-size:1.35rem;margin:2px 0 0;letter-spacing:-.04em}
+.map-head button{background:#fff;color:#214132;border:1px solid #aab9ae;border-radius:4px;padding:8px 14px;font-family:inherit;font-size:.92rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.map-head button:hover{background:#f3f6f0}
+.google-canvas{position:relative;background:var(--soft);overflow:hidden}
+.google-canvas iframe{display:block;width:100%;height:clamp(305px,46vw,505px);border:0}
+.google-canvas iframe[hidden]{display:none}
+.map-controls{padding:18px 24px 22px}
+.place-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.place-buttons button{background:#fff;color:#214132;border:1px solid #aab9ae;border-radius:4px;padding:8px 13px;font-family:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+.place-buttons button:hover{background:#eef3ec}
+.place-buttons button.current{color:#fff;background:var(--green-md);border-color:var(--green-md)}
+.more-places{margin-top:14px}
+.more-places summary{cursor:pointer;color:#274b39;font-size:.92rem;font-weight:600}
+.more-places[open] summary{margin-bottom:10px}
+.map-controls small{display:block;margin-top:14px;font-size:.83rem;color:#55655a}
+.map-controls small a{color:#2b5340;text-decoration:underline}
+
+/* ---------- 매장 안내 (정보 + 지도 2단) ---------- */
+.store-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(20px,2.4vw,32px);align-items:stretch}
+.store-panel{background:#edf1eb;border:1px solid #dfe6db;border-radius:6px;padding:clamp(20px,2.2vw,28px)}
+.store-photo{margin:0 0 20px;border-radius:4px;overflow:hidden;background:#dfe6da}
+.store-photo img{width:100%;height:206px;object-fit:cover;object-position:center 58%}
+.store-photo figcaption{padding:9px 12px;background:#fff;font-size:.8rem;color:#5b6f61;border-top:1px solid #e3e9e0}
+.store-panel h3{margin:0 0 4px;font-size:1.5rem;letter-spacing:-.045em}
+.store-panel .panel-note{margin:0 0 18px;font-size:.9rem;color:#556b5c}
+.store-panel .info-card{background:transparent;border:0;padding:0;max-width:100%}
+.store-panel .info-list li{grid-template-columns:74px minmax(0,1fr);gap:12px;padding:12px 0;border-top:1px solid #d7e0d5;font-size:.95rem}
+.store-panel .info-list li:first-child{border-top:0;padding-top:0}
+.store-panel .info-list .k{font-size:.8rem;color:#5c7061;padding-top:3px}
+.store-panel .info-list .v{color:#26402f}
+.store-panel .info-list .v span{display:block;color:#5c7061;font-size:.86rem}
+.store-panel .info-list .v a{color:#26402f;text-decoration:underline;text-underline-offset:3px}
+.store-panel .map-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip-link{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border:1px solid #a9b8ab;border-radius:999px;background:#fff;font-size:.85rem;font-weight:600;color:#22412f}
+.chip-link:hover{border-color:#5c7a64;background:#fbfdf9}
+.chip-link .ic{width:13px;height:13px;color:#3f6a54}
+.store-map{display:flex;flex-direction:column;min-height:420px;background:#eef1ea;border:1px solid #dfe6db;border-radius:6px;overflow:hidden}
+.store-map iframe{display:block;flex:1 1 auto;width:100%;min-height:380px;border:0}
+.store-map-note{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 14px;margin:0;padding:12px 16px;background:#fff;border-top:1px solid #e3e9e0;font-size:.85rem;color:#4a5c51}
+.store-map-note a{color:#26402f;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.store-map-note a:hover{color:#0f2f22}
+
+/* ---------- 무료 견적·시공 문의 (2단) ---------- */
+.contact-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(24px,3.4vw,52px);align-items:start}
+.contact-lead .section-title{margin-bottom:12px}
+.contact-lead .section-lead{margin-bottom:20px}
+.contact-points{display:grid;gap:10px;margin:0 0 24px;padding:0;list-style:none}
+.contact-points li{position:relative;padding-left:20px;font-size:.95rem;line-height:1.65;color:#3f5448}
+.contact-points li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:2px;background:#5d8a6d;transform:rotate(45deg)}
+.contact-call{margin:0 0 4px;font-size:2rem;font-weight:800;letter-spacing:-.045em;line-height:1.1}
+.contact-call a{color:var(--green)}
+.contact-call a:hover{color:#0f2f22;text-decoration:underline;text-underline-offset:4px}
+.contact-hours{margin:0;font-size:.88rem;color:var(--muted)}
+.form-col .form-card{max-width:100%;border:1px solid var(--line);border-radius:6px;padding:26px 26px 24px}
+.field input,.field select,.field textarea{border-radius:4px;border-color:#c3cec4}
+.field>label{color:#31483a}
+.field .req{color:#3f6a54}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#47755e;outline:2px solid rgba(71,117,94,.2)}
+.consent{color:#4a5c51}
+.consent input{accent-color:#20523f}
+.form-status[data-kind="info"],.form-status[data-kind="ok"]{background:#eef4ec;border:1px solid #cfe0cd;color:#27533f}
+.form-status[data-kind="err"]{background:#fdf2e9;border:1px solid #f0dcc6;color:#8c4a1c}
+.form-note a{color:#26402f}
+
+/* ---------- CTA ---------- */
+.cta{background:var(--green);border-radius:6px;padding:clamp(36px,4.4vw,58px) 28px}
+.cta h2{letter-spacing:-.045em}
+.btn-white{background:#fff;color:var(--green)}
+.btn-white:hover{background:#eceee8}
+.btn-outline-light{border-color:rgba(255,255,255,.55)}
+.btn-outline-light:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+/* ---------- 푸터 ---------- */
+.site-footer{background:#122e27;color:rgba(255,255,255,.74);padding:52px 0 26px}
+.site-footer h3{color:#fff;letter-spacing:.02em}
+.footer-brand .name{color:#fff;letter-spacing:-.04em}
+.site-footer p{color:rgba(255,255,255,.74)}
+.footer-tel a{color:#fff}
+.footer-list a:hover,.footer-info a:hover{color:#fff}
+.footer-info .k{color:rgba(255,255,255,.55)}
+
+/* ---------- 모바일 상담 바 ---------- */
+.callbar .btn{border-radius:3px}
+.callbar .btn-navy{background:var(--green)}
+.callbar .btn-ghost{color:var(--green);border-color:#b8c6b8}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:1080px){
+  .mastin{gap:24px}
+  .mast nav{gap:20px}
+  .store-grid,.contact-grid{grid-template-columns:minmax(0,1fr)}
+  .store-map{min-height:340px}
+  .store-map iframe{min-height:300px}
+}
+@media (max-width:940px){
+  .guidecall,.guidelead{grid-template-columns:1fr;gap:26px;padding-block:48px}
+  .widechips{min-height:70px;transform:none;margin:0}
+}
+@media (max-width:830px){
+  .process-flow{grid-template-columns:1fr;gap:0}
+  .process-flow li{display:flex;gap:16px;padding-bottom:19px}
+  .process-flow li:last-child{padding-bottom:0}
+  .process-flow li:not(:last-child)::after{top:47px;bottom:0;left:24px;right:auto;border:0;border-left:1px solid #b6c9bf}
+  .process-icon{flex:none}
+  .process-flow h3{margin:1px 0 4px}
+}
+@media (max-width:800px){
+  .mastin{display:grid;grid-template-columns:1fr auto;gap:0;padding-top:12px;min-height:0}
+  .mast nav{grid-row:2;grid-column:1/-1;margin:7px 0 0;justify-content:space-between;gap:6px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+  .mast nav::-webkit-scrollbar{display:none}
+  .mast nav a{padding:9px 0;font-size:14px}
+  .mastin>.inquire{grid-column:2;grid-row:1;font-size:14px;padding:8px 14px}
+  .wordmark{font-size:20px}
+  .coverhero .inside{padding-block:58px 80px}
+  .caption span{display:none}
+}
+@media (max-width:760px){
+  #cases .cases{grid-template-columns:1fr}
+  .case-media,.case-media.two{height:215px}
+  #services .card-grid{grid-template-columns:1fr}
+  #services .card-wide{grid-column:auto}
+  .section-lead{font-size:.95rem}
+  .brand-line-inner{display:block;padding:17px 16px 20px}
+  .brand-line h2{font-size:.83rem;margin:0 0 14px}
+  .brand-line li{flex-direction:column;gap:7px;padding:0 4px;font-size:.9rem}
+  .brand-logo{width:52px;height:30px}
+  .map-controls,.map-head{padding-inline:16px}
+  .form-col .form-card{padding:20px 18px}
+  .contact-call{font-size:1.7rem}
+  .store-photo img{height:180px}
+  .btn-more{width:100%;max-width:420px}
+  section[id],article[id]{scroll-margin-top:16px}
+}
+@media (max-width:520px){
+  .coverhero h1{font-size:2.15rem}
+  .herolinks a{flex:1 1 100%}
+  .coverhero .inside{padding-block:48px 76px}
+  .hero-controls{bottom:12px;right:5%}
+  .rotation{width:34px;height:34px}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-slide{transition:none}
+}
