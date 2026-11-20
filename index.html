@@ -394,6 +394,7 @@
 
         <div class="form-col">
           <form class="form-card" id="quote-form" action="#contact" method="post">
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
             <div class="form-grid">
               <div class="field">
                 <label for="q-name">성함 또는 업체명 <span class="req" aria-hidden="true">*</span></label>
@@ -668,10 +669,15 @@
     event.preventDefault();
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
+    var honey = form.querySelector('[name="_honey"]');
+    if (honey && honey.value.trim()) {
+      show("ok", "문의가 접수되었습니다. 확인 후 연락드리겠습니다.");
+      return;
+    }
+
     var data = {
       _subject: "[제일페인트 견적문의] 새 문의가 접수되었습니다",
-      _template: "table",
-      _captcha: "false"
+      _template: "table"
     };
     new FormData(form).forEach(function (value, key) {
       data[key] = (key === "consent") ? "동의함" : value;
@@ -690,7 +696,10 @@
 
     fetch(FORM_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
       body: JSON.stringify(data)
     }).then(function (response) {
       if (!response.ok) throw new Error("HTTP " + response.status);
