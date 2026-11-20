@@ -173,7 +173,8 @@ summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 .store-map-note a:hover{color:#0f2f22}
 
 /* ---------- 무료 견적·시공 문의 (2단) ---------- */
-.contact-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(24px,3.4vw,52px);align-items:start}
+.contact-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(24px,3.4vw,52px);align-items:stretch}
+.contact-lead{background:#f1f5ef;border:1px solid #dfe6db;border-radius:6px;padding:clamp(22px,2.4vw,32px)}
 .contact-lead .section-title{margin-bottom:12px}
 .contact-lead .section-lead{margin-bottom:20px}
 .contact-points{display:grid;gap:10px;margin:0 0 24px;padding:0;list-style:none}
