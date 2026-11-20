@@ -109,3 +109,18 @@
   .issue-end{padding-inline:16px}
   .trend-use li{grid-template-columns:70px minmax(0,1fr);gap:8px}
 }
+
+
+/* ---------- 서브페이지: 홈으로 버튼 ---------- */
+.homebtn{display:inline-flex;align-items:center;gap:5px;padding:10px 14px;min-height:40px;border:1px solid #cbd8cb;border-radius:3px;background:#fff;color:#1c3b31;font-size:14px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;text-decoration:none;transition:background-color .15s ease,border-color .15s ease}
+.homebtn:hover{background:#f1f6ef;border-color:#8ea795}
+.homebtn svg{width:14px;height:14px;flex:none}
+@media (max-width:820px){
+  .mastin{grid-template-columns:minmax(0,1fr) auto auto;column-gap:6px}
+  .homebtn{grid-row:1;grid-column:2;justify-self:end;padding:7px 10px;min-height:36px;font-size:13px}
+  .mastin>.inquire{grid-row:1;grid-column:3;padding:7px 10px;font-size:13px;min-height:36px}
+}
+@media (max-width:400px){
+  .homebtn{font-size:12.5px;padding:6px 9px}
+  .mastin>.inquire{font-size:12.5px;padding:6px 9px}
+}

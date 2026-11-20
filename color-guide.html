@@ -218,6 +218,20 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
   .photos .ref-badge{font-size:.625rem;padding:2px 6px}
   .cc,.rc{font-size:.6875rem}
 }
+
+/* ---------- 서브페이지: 홈으로 버튼 ---------- */
+.homebtn{display:inline-flex;align-items:center;gap:5px;padding:10px 14px;min-height:40px;border:1px solid #cbd8cb;border-radius:3px;background:#fff;color:#1c3b31;font-size:14px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;text-decoration:none;transition:background-color .15s ease,border-color .15s ease}
+.homebtn:hover{background:#f1f6ef;border-color:#8ea795}
+.homebtn svg{width:14px;height:14px;flex:none}
+@media (max-width:820px){
+  .mastin{grid-template-columns:minmax(0,1fr) auto auto;column-gap:6px}
+  .homebtn{grid-row:1;grid-column:2;justify-self:end;padding:7px 10px;min-height:36px;font-size:13px}
+  .mastin>.inquire{grid-row:1;grid-column:3;padding:7px 10px;font-size:13px;min-height:36px}
+}
+@media (max-width:400px){
+  .homebtn{font-size:12.5px;padding:6px 9px}
+  .mastin>.inquire{font-size:12.5px;padding:6px 9px}
+}
 </style>
 </head>
 <body>
@@ -232,6 +246,7 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
       <a href="./simulations.html">색 시뮬레이션</a>
       <a href="./index.html#store">매장 안내</a>
     </nav>
+          <a class="homebtn" href="./index.html"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></svg>홈으로</a>
     <a class="inquire" href="./index.html#contact">견적 문의</a>
   </div>
 </header>
@@ -1514,6 +1529,7 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
     <p><b>색상 코드·노루·삼화 코드</b>는 화면(영상 RGB) 기준 근사값입니다. 발주·조색 전에 <b>매장 실물 컬러칩(견본)으로 대조</b>하고, 넓은 벽은 시료를 칠해 확인하세요. ΔE 5 이상은 조색 필요 / 근사치로 표시했습니다.</p>
     <p><b>취급 브랜드</b> 삼화페인트 · 노루페인트 · 팬톤페인트 · 본덱스 · 테라코</p>
   <p><a href="./index.html" style="color:#295646;font-weight:700">← 제일페인트 홈으로</a> · 경주시 금성로 252 · 상담 054-777-3640</p>
+    <p><style>.refresh-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;min-height:32px;border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;font:inherit;font-size:.75rem;font-weight:600;line-height:1.2;cursor:pointer;opacity:.62;transition:opacity .15s ease}.refresh-btn:hover{opacity:1}.refresh-btn:focus-visible{outline:2px solid currentColor;outline-offset:2px}</style><button class="refresh-btn" type="button" onclick="location.reload()" aria-label="페이지 새로고침"><span aria-hidden="true">&#8635;</span> 새로고침</button></p>
   </div>
 </footer>
 <div class="lb" id="lb" hidden><button class="lb-x" aria-label="닫기">×</button><img alt=""><p class="lb-cap"></p></div>
