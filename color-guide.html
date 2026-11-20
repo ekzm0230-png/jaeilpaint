@@ -34,6 +34,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .stats span{font-size:.8125rem;color:#AFC0D6}
 .tabs{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
 .tabs .wrap{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 18px;scrollbar-width:none}
+.tabs .wrap.drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
+@media(min-width:768px){.tabs .wrap{flex-wrap:wrap;overflow-x:visible;row-gap:8px;cursor:default}.tabs .wrap::-webkit-scrollbar{display:none}}
+
 .tabs .wrap::-webkit-scrollbar{display:none}
 .tab{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #D8DEE6;border-radius:999px;font-size:.9375rem;font-weight:700;color:#374151;white-space:nowrap;background:#fff}
 .tab i{font-style:normal;font-size:.8125rem;font-weight:800;color:var(--teal2);background:#E6F5F2;border-radius:999px;padding:1px 6px}
@@ -1290,6 +1293,36 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
         a.classList.add('on');
       },10);
     });
+  });
+})();
+</script>
+
+<script>
+/* 상단 점프 탭: 좁은 화면에서 마우스 드래그로 가로 이동 */
+(function(){
+  document.querySelectorAll('.tabs .wrap').forEach(function(w){
+    var down=false, startX=0, startLeft=0, dragged=false;
+    w.addEventListener('pointerdown', function(e){
+      if (e.pointerType === 'touch') return;
+      if (w.scrollWidth <= w.clientWidth + 1) return;
+      if (getComputedStyle(w).flexWrap === 'wrap') return;
+      down = true; dragged = false; startX = e.clientX; startLeft = w.scrollLeft;
+      w.classList.add('drag');
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (!dragged && Math.abs(dx) > 4) dragged = true;
+      if (dragged){ w.scrollLeft = startLeft - dx; if (e.cancelable) e.preventDefault(); }
+    });
+    window.addEventListener('pointerup', function(){
+      if (!down) return;
+      down = false; w.classList.remove('drag');
+      setTimeout(function(){ dragged = false; }, 0);
+    });
+    w.addEventListener('click', function(e){
+      if (dragged){ e.preventDefault(); e.stopPropagation(); dragged = false; }
+    }, true);
   });
 })();
 </script>

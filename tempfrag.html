@@ -22,6 +22,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 .stats span{font-size:.8125rem;color:#AFC0D6}
 .tabs{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.97);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid var(--line)}
 .tabs .wrap{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:10px 18px;scrollbar-width:none}
+.tabs .wrap.drag{cursor:grabbing;user-select:none;-webkit-user-select:none}
+@media(min-width:768px){.tabs .wrap{flex-wrap:wrap;overflow-x:visible;row-gap:8px;cursor:default}.tabs .wrap::-webkit-scrollbar{display:none}}
+
 .tabs .wrap::-webkit-scrollbar{display:none}
 .tab{flex:none;display:inline-flex;align-items:center;gap:6px;padding:9px 13px;border:1px solid #D8DEE6;border-radius:999px;font-size:.9375rem;font-weight:700;color:#374151;white-space:nowrap;background:#fff}
 .tab i{font-style:normal;font-size:.8125rem;font-weight:800;color:var(--teal2);background:#E6F5F2;border-radius:999px;padding:1px 6px}
@@ -154,7 +157,7 @@ td:first-child{font-weight:700;color:#1F2937;white-space:nowrap}
 .navmini{display:none}
 @media(min-width:900px){.navmini{display:flex;gap:18px;margin-left:22px}.navmini a{font-size:.9375rem;font-weight:600;color:#374151}.navmini a:hover{color:#0F766E}}
 </style></head>
-<body><main><div class="wrap" style="padding-top:20px"><article class="card" id="q1">
+<body><nav class="tabs" aria-label="출처별 바로가기"><div class="wrap"><a class="tab" href="#q">카페 팔레트<i>5</i></a><a class="tab" href="#j">1960s 2톤<i>6</i></a><a class="tab" href="#k">키친 대비<i>6</i></a><a class="tab" href="#shop">상가 내벽·천장<i>5</i></a><a class="tab" href="#door">아파트 문·도배<i>6</i></a><a class="tab" href="#nava">조명 포인트 배색<i>6</i></a><a class="tab" href="#aid">팔레트 반복<i>1</i></a><a class="tab" href="#ever">4팔레트 배색<i>4</i></a><a class="tab" href="#guide">실무 가이드</a></div></nav><main><div class="wrap" style="padding-top:20px"><article class="card" id="q1">
   <figure class="photo" data-cap="화이트 + 파우더 블루 바닥 + 월넛">
     <img src="./assets/color-guide/ig1-02.jpg" alt="화이트 + 파우더 블루 바닥 + 월넛 예시 사진" loading="lazy" decoding="async">
     <span class="zoom" aria-hidden="true">+ 크게 보기</span>
