@@ -1,20 +1,22 @@
 /* 제일페인트 방문자 카운터
  * 푸터에 "방문자 · 오늘 N명 · 총 N명"을 표시합니다.
- * - 오늘 카운트: 한국 시간(Asia/Seoul) 기준 날짜 키(day-YYYY-MM-DD) → 매일 자정 자동으로 새로 시작
- * - 총 카운트: total 키에 누적
- * - 한 세션(탭)당 1회만 증가(hit), 같은 세션에서 페이지를 옮기면 조회(get)만 함
- * - API 응답 실패 시 아무것도 표시하지 않아 레이아웃이 깨지지 않음
+ * - 백엔드: countapi.mileshilliard.com (무료·회원가입 없음·CORS 허용, Cloudflare)
+ * - 오늘 카운트: 한국 시간(Asia/Seoul) 기준 날짜별 키(jaeilpaint_gj_day_YYYYMMDD) → 매일 자정 자동으로 새로 시작
+ * - 총 카운트: jaeilpaint_gj_total 누적
+ * - 한 세션(탭)당 1회만 증가(hit). 같은 세션에서 페이지를 옮기면 조회(get)만 하므로 숫자가 일관됨
+ * - 마지막으로 확인된 값은 localStorage에 남겨, API가 느리거나 실패해도 이전 방문자에게는 숫자가 보임
+ * - API 응답이 아예 없으면 아무것도 표시하지 않아 레이아웃이 깨지지 않음
  */
 (function () {
   'use strict';
 
-  var API = 'https://abacus.jasoncameron.dev/';
-  var NS = 'jaeilpaint-gj';
-  var TOTAL_KEY = 'total';
-  var DAY_PREFIX = 'day-';
-  var STORE_KEY = 'jpvc.v1';
+  var API = 'https://countapi.mileshilliard.com/api/v1/';
+  var PREFIX = 'jaeilpaint_gj_';
+  var TOTAL_KEY = PREFIX + 'total';
+  var SESSION_KEY = 'jpvc.v1';
+  var CACHE_KEY = 'jpvc.last';
   var TIMEOUT = 8000;
-  var RETRY_DELAY = 700;
+  var RETRY_DELAY = 600;
 
   var targets = [];
 
@@ -25,23 +27,30 @@
       }).format(new Date());
       if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
     } catch (e) { /* Intl 미지원 환경 */ }
-    var d = new Date(Date.now() + 9 * 3600 * 1000);
-    return d.toISOString().slice(0, 10);
+    return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
   }
 
-  function readStore() {
+  function dayKey(day) {
+    return PREFIX + 'day_' + day.replace(/-/g, '');
+  }
+
+  function readJSON(store, key) {
     try {
-      var raw = window.sessionStorage.getItem(STORE_KEY);
+      var raw = store.getItem(key);
       return raw ? JSON.parse(raw) : null;
     } catch (e) { return null; }
   }
 
-  function writeStore(v) {
-    try { window.sessionStorage.setItem(STORE_KEY, JSON.stringify(v)); } catch (e) { /* 저장 불가 환경 */ }
+  function writeJSON(store, key, value) {
+    try { store.setItem(key, JSON.stringify(value)); } catch (e) { /* 저장 불가 환경 */ }
+  }
+
+  function store(name) {
+    try { return window[name]; } catch (e) { return null; }
   }
 
   function request(action, key) {
-    var url = API + action + '/' + NS + '/' + key;
+    var url = API + action + '/' + encodeURIComponent(key);
     var opts = { cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer' };
     var ctrl = (typeof AbortController === 'function') ? new AbortController() : null;
     if (ctrl) opts.signal = ctrl.signal;
@@ -57,15 +66,16 @@
       }
       return res.json();
     }).then(function (data) {
-      if (!data || typeof data.value !== 'number' || !isFinite(data.value)) throw new Error('bad payload');
-      return data.value;
+      var v = data && Number(data.value);
+      if (typeof v !== 'number' || !isFinite(v)) throw new Error('bad payload');
+      return v;
     }).catch(function (e) {
       clearTimeout(timer);
       throw e;
     });
   }
 
-  // 조회: 키가 아직 없으면(오늘 첫 방문 전) 0
+  // 조회: 오늘 아직 방문자가 없어 키가 없으면 0
   function getValue(key) {
     return request('get', key).catch(function (err) {
       if (err && err.status === 404) return 0;
@@ -73,13 +83,11 @@
     });
   }
 
-  // 증가: 새 키를 처음 만들 때 서버가 드물게 500을 돌려주므로 한 번만 재시도
+  // 증가: 일시적인 실패를 위해 한 번만 재시도
   function hitValue(key) {
     return request('hit', key).catch(function (err) {
-      if (err && (err.status === 404 || err.name === 'AbortError')) throw err;
-      return new Promise(function (resolve) { setTimeout(resolve, RETRY_DELAY); }).then(function () {
-        return request('hit', key);
-      });
+      return new Promise(function (resolve) { setTimeout(resolve, RETRY_DELAY); })
+        .then(function () { return request('hit', key); });
     });
   }
 
@@ -135,23 +143,34 @@
 
   function run() {
     targets = Array.prototype.slice.call(document.querySelectorAll('[data-visitor-counter]'));
-    if (!targets.length) return;
+    if (!targets.length || typeof fetch !== 'function') return;
     ensureStyle();
 
+    var sess = store('sessionStorage');
+    var local = store('localStorage');
     var day = kstDay();
-    var dayKey = DAY_PREFIX + day;
-    var saved = readStore();
+    var todayKey = dayKey(day);
+
+    var cached = local ? readJSON(local, CACHE_KEY) : null;
+    var saved = sess ? readJSON(sess, SESSION_KEY) : null;
     var s = (saved && saved.day === day) ? saved : { day: day, hitDay: false, hitTotal: false };
 
     var shown = {};
-    if (typeof s.today === 'number') shown.today = s.today;
-    if (typeof s.total === 'number') shown.total = s.total;
+    if (cached && cached.day === day && typeof cached.today === 'number') shown.today = cached.today;
+    if (cached && typeof cached.total === 'number') shown.total = cached.total;
     render(shown);
 
     function save() {
       s.today = shown.today;
       s.total = shown.total;
-      writeStore(s);
+      if (sess) writeJSON(sess, SESSION_KEY, s);
+      if (local && (typeof shown.today === 'number' || typeof shown.total === 'number')) {
+        writeJSON(local, CACHE_KEY, {
+          day: typeof shown.today === 'number' ? day : (cached && cached.day) || day,
+          today: shown.today,
+          total: shown.total
+        });
+      }
     }
 
     function settle(field, value) {
@@ -162,8 +181,8 @@
 
     // 오늘 방문자
     var dayTask = s.hitDay
-      ? getValue(dayKey)
-      : hitValue(dayKey).then(function (v) { s.hitDay = true; save(); return v; });
+      ? getValue(todayKey)
+      : hitValue(todayKey).then(function (v) { s.hitDay = true; save(); return v; });
     dayTask.then(function (v) { settle('today', v); }, function () { /* 실패 시 표시값 유지 */ });
 
     // 총 방문자
