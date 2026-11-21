@@ -133,7 +133,7 @@
     st.id = 'vc-style';
     st.textContent =
       '.vc-visitors,.site-footer p.vc-visitors,.foot p.vc-visitors{' +
-      'display:flex;flex-wrap:wrap;align-items:center;margin:14px 0 0;padding:0;' +
+      'display:block;margin:14px 0 0;padding:0;' +
       'font-size:.75rem;line-height:1.6;font-weight:500;letter-spacing:.01em;color:inherit}' +
       '.foot p.vc-visitors{margin-top:16px}' +
       '.vc-visitors b{font-weight:700;font-variant-numeric:tabular-nums}' +
