@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>counter probe</title>
+<style>body{font:14px/1.6 monospace;padding:16px}pre{white-space:pre-wrap}</style>
+</head><body>
+<h1>counter probe</h1>
+<pre id="out">running…</pre>
+<img id="hitbadge" alt="" src="https://hits.sh/ekzm0230-png.github.io/jaeilpaint.svg" style="display:none">
+<script>
+var lines = [];
+function log(s){ lines.push(s); document.getElementById('out').textContent = lines.join('\n'); }
+
+function probe(label, url){
+  var t0 = Date.now();
+  var ctrl = new AbortController();
+  var timer = setTimeout(function(){ ctrl.abort(); }, 7000);
+  return fetch(url, {cache:'no-store', credentials:'omit', signal: ctrl.signal})
+    .then(function(r){ return r.text().then(function(b){ log(label + ' → HTTP ' + r.status + ' (' + (Date.now()-t0) + 'ms) ' + b.slice(0,90)); }); })
+    .catch(function(e){ log(label + ' → FAIL ' + (e && e.name) + ' ' + (e && e.message) + ' (' + (Date.now()-t0) + 'ms)'); })
+    .then(function(){ clearTimeout(timer); });
+}
+
+var img = document.getElementById('hitbadge');
+img.addEventListener('load', function(){ log('hits.sh <img> → loaded ' + img.naturalWidth + 'x' + img.naturalHeight); });
+img.addEventListener('error', function(){ log('hits.sh <img> → error'); });
+setTimeout(function(){ if (!img.complete) log('hits.sh <img> → still pending after 8s'); }, 8000);
+
+Promise.resolve()
+  .then(function(){ return probe('abacus /healthcheck', 'https://abacus.jasoncameron.dev/healthcheck'); })
+  .then(function(){ return probe('abacus /get total', 'https://abacus.jasoncameron.dev/get/jaeilpaint-gj/total'); })
+  .then(function(){ return probe('control jsdelivr', 'https://cdn.jsdelivr.net/npm/pretendard@1.3.9/package.json'); })
+  .then(function(){ return probe('control same-origin', './sitemap.xml'); })
+  .then(function(){ log('DONE'); });
+</script>
+</body></html>
