@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>counter probe 2</title>
+<html lang="ko"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>counter probe 3</title>
 <style>body{font:13px/1.55 monospace;padding:16px}pre{white-space:pre-wrap}</style>
 </head><body>
-<h1>counter probe 2</h1>
+<h1>counter probe 3</h1>
 <pre id="out">running…</pre>
 <script>
 var lines = [];
 function log(s){ lines.push(s); document.getElementById('out').textContent = lines.join('\n'); }
 
-function probe(label, url, ms){
+function probe(label, url, opts, ms){
   var t0 = Date.now();
   var ctrl = new AbortController();
-  var timer = setTimeout(function(){ ctrl.abort(); }, ms || 12000);
-  return fetch(url, {cache:'no-store', credentials:'omit', signal: ctrl.signal})
-    .then(function(r){ return r.text().then(function(b){ log(label + ' → ' + r.status + ' (' + (Date.now()-t0) + 'ms) ' + b.slice(0,70)); }); })
+  var timer = setTimeout(function(){ ctrl.abort(); }, ms || 10000);
+  var o = Object.assign({cache:'no-store', credentials:'omit', signal: ctrl.signal}, opts || {});
+  return fetch(url, o)
+    .then(function(r){ return r.text().then(function(b){ log(label + ' → ' + r.status + ' (' + (Date.now()-t0) + 'ms) ' + b.replace(/\s+/g,' ').slice(0,60)); }); })
     .catch(function(e){ log(label + ' → FAIL ' + (e && e.name) + ' (' + (Date.now()-t0) + 'ms)'); })
     .then(function(){ clearTimeout(timer); });
 }
 
 var steps = [
-  ['healthcheck #1', 'https://abacus.jasoncameron.dev/healthcheck'],
-  ['get total #1',   'https://abacus.jasoncameron.dev/get/jaeilpaint-gj/total'],
-  ['get total #2',   'https://abacus.jasoncameron.dev/get/jaeilpaint-gj/total'],
-  ['info total',     'https://abacus.jasoncameron.dev/info/jaeilpaint-gj/total'],
-  ['get day',        'https://abacus.jasoncameron.dev/get/jaeilpaint-gj/day-2026-11-21'],
-  ['hit day(test ns)', 'https://abacus.jasoncameron.dev/hit/jprobe-xyz/day-2026-11-21'],
-  ['healthcheck #2', 'https://abacus.jasoncameron.dev/healthcheck'],
-  ['jsonblob read',  'https://jsonblob.com/api/jsonBlob/8f0f0f00-0000-0000-0000-000000000000']
+  ['abacus health',      'https://abacus.jasoncameron.dev/healthcheck', null],
+  ['abacus get total',   'https://abacus.jasoncameron.dev/get/jaeilpaint-gj/total', null],
+  ['counterapi v2 noauth','https://api.counterapi.dev/v2/test/test/up', null],
+  ['jsonblob list',      'https://jsonblob.com/api/jsonBlob', null],
+  ['kvdb bucket',        'https://kvdb.io/', null],
+  ['hits.sh svg fetch',  'https://hits.sh/ekzm0230-png.github.io/jaeilpaint.svg', null],
+  ['visitorbadge json',  'https://api.visitorbadge.io/api/visitors?path=jaeilpaint-probe&label=visitors&countColor=%23263759', null],
+  ['abacus health #2',   'https://abacus.jasoncameron.dev/healthcheck', null]
 ];
 
-steps.reduce(function(p, s){ return p.then(function(){ return probe(s[0], s[1]); }); }, Promise.resolve())
+steps.reduce(function(p, s){ return p.then(function(){ return probe(s[0], s[1], s[2]); }); }, Promise.resolve())
   .then(function(){ log('DONE'); });
 </script>
 </body></html>
