@@ -211,6 +211,8 @@ summary:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 .footer-tel a{color:#fff}
 .footer-list a:hover,.footer-info a:hover{color:#fff}
 .footer-info .k{color:rgba(255,255,255,.55)}
+.footer-bottom a{color:inherit;border-bottom:1px solid rgba(255,255,255,.28)}
+.footer-bottom a:hover{color:#fff;border-bottom-color:#fff}
 
 /* ---------- 모바일 상담 바 ---------- */
 .callbar .btn{border-radius:3px}

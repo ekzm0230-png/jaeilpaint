@@ -1,9 +1,12 @@
 /* 제일페인트 방문자 카운터
- * 푸터에 "방문자 · 오늘 N명 · 총 N명"을 표시합니다.
+ * 푸터에 "방문 세션(참고) · 오늘 N · 누적 N"을 표시합니다.
+ * - 숫자는 사람 수가 아니라 탭(세션) 한 번을 1로 세는 참고 수치입니다. 실제 방문자 수·순방문자 수가 아닙니다.
  * - 백엔드: countapi.mileshilliard.com (무료·회원가입 없음·CORS 허용, Cloudflare)
  * - 오늘 카운트: 한국 시간(Asia/Seoul) 기준 날짜별 키(jaeilpaint_gj_day_YYYYMMDD) → 매일 자정 자동으로 새로 시작
- * - 총 카운트: jaeilpaint_gj_total 누적
+ * - 누적 카운트: jaeilpaint_gj_total 누적
  * - 한 세션(탭)당 1회만 증가(hit). 같은 세션에서 페이지를 옮기면 조회(get)만 하므로 숫자가 일관됨
+ * - 증가 요청은 한 번만 보냅니다. 실패했을 때 다시 보내면 앞선 요청이 실제로 집계된 경우 중복으로 +1 되어,
+ *   세션당 1회라는 기준이 깨지기 때문입니다(값은 다음 조회에서 맞춰짐).
  * - 마지막으로 확인된 값은 localStorage에 남겨, API가 느리거나 실패해도 이전 방문자에게는 숫자가 보임
  * - API 응답이 아예 없으면 아무것도 표시하지 않아 레이아웃이 깨지지 않음
  */
@@ -16,7 +19,6 @@
   var SESSION_KEY = 'jpvc.v1';
   var CACHE_KEY = 'jpvc.last';
   var TIMEOUT = 8000;
-  var RETRY_DELAY = 600;
 
   var targets = [];
 
@@ -83,12 +85,9 @@
     });
   }
 
-  // 증가: 일시적인 실패를 위해 한 번만 재시도
+  // 증가: 한 번만 요청합니다(재시도는 응답 유실 시 중복 +1을 만들 수 있어 하지 않음)
   function hitValue(key) {
-    return request('hit', key).catch(function (err) {
-      return new Promise(function (resolve) { setTimeout(resolve, RETRY_DELAY); })
-        .then(function () { return request('hit', key); });
-    });
+    return request('hit', key);
   }
 
   function fmt(n) {
@@ -106,7 +105,7 @@
 
     targets.forEach(function (el) {
       clear(el);
-      el.appendChild(document.createTextNode('방문자'));
+      el.appendChild(document.createTextNode('방문 세션(참고)'));
 
       function part(label, n) {
         var sep = document.createElement('span');
@@ -118,11 +117,11 @@
         var b = document.createElement('b');
         b.textContent = fmt(n);
         el.appendChild(b);
-        el.appendChild(document.createTextNode('명'));
       }
 
       if (hasToday) part('오늘', state.today);
-      if (hasTotal) part('총', state.total);
+      if (hasTotal) part('누적', state.total);
+      el.title = '탭(방문 세션)을 한 번씩 세는 참고 수치입니다. 실제 방문자 수와 다를 수 있습니다.';
       el.hidden = false;
     });
   }
